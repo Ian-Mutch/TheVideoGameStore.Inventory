@@ -42,12 +42,14 @@ jobs:
     if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
+    - name: Setup NuGet.exe for use with actions
+      uses: NuGet/setup-nuget@v1.0.5
+      with:
+        nuget-api-key: ${{ secrets.NUGET_PUSH_TOKEN }}
+        nuget-api-key-source: github "https://nuget.pkg.github.com/Ian-Mutch/index.json"
     - name: Download Packages
       uses: actions/download-artifact@v1
       with:
         name: nupkg
-    - name: Authenticate
-      run: dotnet nuget add source --username ${{ secrets.NUGET_USERNAME }} --password ${{ secrets.NUGET_PUSH_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Ian-Mutch/index.json"
     - name: Push to GitHub Feed
-      run: dotnet nuget push "./nupkg/*.nupkg" --api-key ${{ secrets.NUGET_PUSH_TOKEN }} --source "github"
-       
+      run: nuget push "./nupkg/*.nupkg"
