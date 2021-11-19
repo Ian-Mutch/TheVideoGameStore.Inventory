@@ -43,5 +43,5 @@ jobs:
     - name: Authenticate
       run: dotnet nuget add source --username ${{ secrets.NUGET_USERNAME }} --password ${{ secrets.NUGET_PUSH_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Ian-Mutch/index.json"
     - name: Push to GitHub Feed
-      run: dotnet nuget push "src/Inventory.ApiClient/bin/Release/*.nupkg" --api-key ${{ secrets.NUGET_PUSH_TOKEN }} --source "github"
+      run: dotnet nuget push "./nupkg/*.nupkg" --api-key ${{ secrets.NUGET_PUSH_TOKEN }} --source "github"
        
