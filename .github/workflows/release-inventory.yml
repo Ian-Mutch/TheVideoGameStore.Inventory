@@ -34,6 +34,6 @@ jobs:
     - name: Test
       run: dotnet test src/Inventory.sln --no-build -c Release --verbosity normal
     - name: Push to GitHub Feed
-      run: dotnet nuget push "./nupkg/*.nupkg" --no-symbols --skip-duplicate
+      run: dotnet nuget push src/Inventory.ApiClient/bin/Release/*.nupkg --no-symbols --skip-duplicate
     env:
         NUGET_AUTH_TOKEN: ${{ github.token }}
