@@ -10,7 +10,7 @@ on:
         required: true
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -38,6 +38,6 @@ jobs:
       run: dotnet test src/Inventory.sln --no-build -c Release --verbosity normal
       
     - name: Push to GitHub Feed
-      run: dotnet nuget push "**/*.nupkg" -k ${{ secrets.NUGET_PUSH_TOKEN }} -s "https://nuget.pkg.github.com/Ian-Mutch/index.json"
+      run: dotnet nuget push "**/*.nupkg" --api-key ${{ github.token }} -s "https://nuget.pkg.github.com/Ian-Mutch/index.json"
     env:
         NUGET_AUTH_TOKEN: ${{ github.token }}
