@@ -37,5 +37,11 @@ jobs:
     - name: Test
       run: dotnet test src/Inventory.sln --no-build -c Release --verbosity normal
       
+    - name: Authenticate
+      run: dotnet nuget add source --username Ian-Mutch --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Ian-Mutch/index.json"
+      
+    - name: Pack
+      run: dotnet pack src/Inventory.ApiClient/Inventory.ApiClient.csproj -c Release --no-build --no-restore
+      
     - name: Push to GitHub Feed
-      run: dotnet nuget push "**/*.nupkg" --api-key ${{ github.token }} -s "https://nuget.pkg.github.com/Ian-Mutch/index.json"
+      run: dotnet nuget push "**/*.nupkg" --source "github"
