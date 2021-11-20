@@ -10,7 +10,7 @@ on:
         required: true
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -39,5 +39,3 @@ jobs:
       
     - name: Push to GitHub Feed
       run: dotnet nuget push "**/*.nupkg" --api-key ${{ github.token }} -s "https://nuget.pkg.github.com/Ian-Mutch/index.json"
-    env:
-        NUGET_AUTH_TOKEN: ${{ github.token }}
