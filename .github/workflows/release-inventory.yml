@@ -32,7 +32,7 @@ jobs:
 
     # Build with implicit restore
     - name: Build
-      run: dotnet build src/Inventory.sln --no-restore -c Release -p:Version=${{ env.RELEASE_VERSION }}
+      run: dotnet build src/Inventory.sln -c Release -p:Version=${{ env.RELEASE_VERSION }}
       
     - name: Test
       run: dotnet test src/Inventory.sln --no-build -c Release --verbosity normal
