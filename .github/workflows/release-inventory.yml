@@ -4,44 +4,38 @@ on:
   release:
     types: [created]
   workflow_dispatch:
-  
+    inputs:
+      version:
+        description: 'Release version'
+        required: true
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore src/Inventory.sln
-    - name: Set env
+        
+    - if: github.event_name == 'release'
+      name: Set release environment version
       run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      
+    - if: github.event_name == 'workflow_dispatch'
+      name: Set manual environment version
+      run: echo "RELEASE_VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+      
+    - name: Restore
+      run: dotnet restore src/Inventory.sln
+      
     - name: Build
       run: dotnet build src/Inventory.sln --no-restore -c Release -p:Version=${{ env.RELEASE_VERSION }}
+      
     - name: Test
       run: dotnet test src/Inventory.sln --no-build -c Release --verbosity normal
-    - name: Upload Nuget Packges to Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: nupkg
-        path: src/Inventory.ApiClient/bin/Release/*.nupkg
-        
-  prerelease:
-  
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-    - name: Download Packages
-      uses: actions/download-artifact@v1
-      with:
-        name: nupkg
-    - name: Authenticate
-      run: dotnet nuget add source --username ${{ secrets.NUGET_USERNAME }} --password ${{ secrets.NUGET_PUSH_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Ian-Mutch/index.json"
+      
     - name: Push to GitHub Feed
-      run: dotnet nuget push "src/Inventory.ApiClient/bin/Release/*.nupkg" --api-key ${{ secrets.NUGET_PUSH_TOKEN }} --source "github"
-       
+      run: dotnet nuget push "**/*.nupkg" --api-key ${{ github.token }} -s "https://nuget.pkg.github.com/Ian-Mutch/index.json"
