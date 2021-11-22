@@ -17,13 +17,13 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v2
       with:
         dotnet-version: '6.0.x'
         include-prerelease: true
         source-url: https://pkgs.dev.azure.com/ianmutch0535/_packaging/ianmutch0535/nuget/v3/index.json
       env:
-          NUGET_AUTH_TOKEN: ${{secrets.ADO_NUGET_AUTH}}
+        NUGET_AUTH_TOKEN: ${{secrets.ADO_NUGET_AUTH}}
         
     # If automated release
     - if: github.event_name == 'release'
@@ -43,4 +43,4 @@ jobs:
       run: dotnet test src/Inventory.sln --no-build -c Release --verbosity normal
 
     - name: Publish Nuget to Azure Artifacts
-      run: dotnet nuget push src/Inventory.ApiClient/bin/Release/*.nupkg  --no-symbols --skip-duplicate
+      run: dotnet nuget push src/Inventory.ApiClient/bin/Release/*.nupkg --api-key --no-symbols --skip-duplicate
