@@ -21,6 +21,9 @@ jobs:
       with:
         dotnet-version: '6.0.x'
         include-prerelease: true
+        source-url: https://pkgs.dev.azure.com/ianmutch0535/_packaging/ianmutch0535/nuget/v3/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.ADO_NUGET_AUTH}}
         
     # If automated release
     - if: github.event_name == 'release'
@@ -40,4 +43,4 @@ jobs:
       run: dotnet test src/Inventory.sln --no-build -c Release --verbosity normal
 
     - name: Publish Nuget to Azure Artifacts
-      run: dotnet nuget push src/Inventory.ApiClient/bin/Release/net6.0/TheVideoGameStore.Inventory.ApiClient.${{ env.RELEASE_VERSION }}.nupkg --api-key ${{secrets.ADO_NUGET_AUTH}} -s https://pkgs.dev.azure.com/ianmutch0535/_packaging/ianmutch0535/nuget/v3/index.json --no-symbols --skip-duplicate
+      run: dotnet nuget push **/*.nupkg --api-key --no-symbols --skip-duplicate
