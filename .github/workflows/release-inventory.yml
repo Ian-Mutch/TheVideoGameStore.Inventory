@@ -47,8 +47,8 @@ jobs:
       
     - name: Publish nuget
       run: |
-           for f in **/*.nupkg
+           for f in ./TheVideoGameStore.Inventory/bin/release/*.nupkg
            do
-             curl -vX PUT -u "[user]:${{ secrets.GITHUB_TOKEN }}" -F package=@$f https://nuget.pkg.github.com/Ian-Mutch/
+             curl -vX PUT -u "Ian-Mutch:${{ secrets.GITHUB_TOKEN }}" -F package=@$f https://nuget.pkg.github.com/Ian-Mutch/
            done
       shell: bash
