@@ -43,4 +43,4 @@ jobs:
       run: dotnet test src/Inventory.sln --no-build -c Release --verbosity normal
 
     - name: Publish Nuget to Azure Artifacts
-      run: dotnet nuget push src/Inventory.ApiClient/bin/Release/*.nupkg --api-key --no-symbols --skip-duplicate
+      run: dotnet nuget push src/Inventory.ApiClient/bin/Release/net6.0/TheVideoGameStore.Inventory.ApiClient.${{ env.RELEASE_VERSION }}.nupkg --api-key --no-symbols --skip-duplicate
