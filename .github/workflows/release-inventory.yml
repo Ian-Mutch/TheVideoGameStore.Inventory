@@ -17,12 +17,13 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1.0.0
+      uses: actions/setup-dotnet@v1
       with:
-        version: 6.0.x
+        dotnet-version: '6.0.x'
+        include-prerelease: true
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
       env:
-          NUGET_AUTH_TOKEN: '%NUGET_AUTH_TOKEN%'
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         
     # If automated release
     - if: github.event_name == 'release'
@@ -43,5 +44,3 @@ jobs:
 
     - name: Push to GitHub Nuget Feed
       run: dotnet nuget push "**/*.nupkg" --no-symbols --skip-duplicate
-      env:
-        NUGET_AUTH_TOKEN: ${{ github.token }}
