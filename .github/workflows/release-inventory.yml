@@ -47,7 +47,7 @@ jobs:
       
     - name: Publish nuget
       run: |
-           for f in **.*nupkg
+           for f in **/*.nupkg
            do
              curl -vX PUT -u "[user]:${{ secrets.GITHUB_TOKEN }}" -F package=@$f https://nuget.pkg.github.com/Ian-Mutch/
            done
