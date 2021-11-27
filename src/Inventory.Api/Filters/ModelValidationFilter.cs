@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace TheVideoGameStore.Inventory.Filters;
+namespace TheVideoGameStore.Inventory.Api.Filters;
 
 public class ModelValidationFilter : ActionFilterAttribute
 {

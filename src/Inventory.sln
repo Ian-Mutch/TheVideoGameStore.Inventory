@@ -18,15 +18,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E0DD48F1-F2B4-49BF-BD43-D95A7EDD307F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		directory.build.props = directory.build.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3EE80FF4-763D-4164-A53D-88D6297D3643}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6A9F40E6-4F21-412E-9294-34FFA507365B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryService.Repositories.Tests", "Inventory.Repositories.Tests\InventoryService.Repositories.Tests.csproj", "{D91193B5-0E5B-4877-A7D6-6740271AD488}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Repositories.Tests", "Inventory.Repositories.Tests\Inventory.Repositories.Tests.csproj", "{D91193B5-0E5B-4877-A7D6-6740271AD488}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory", "Inventory\Inventory.csproj", "{059E13A9-54D7-468B-9834-30170675BC01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Api", "Inventory.Api\Inventory.Api.csproj", "{059E13A9-54D7-468B-9834-30170675BC01}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Data.Abstractions", "Inventory.Data.Abstractions\Inventory.Data.Abstractions.csproj", "{0FC0B54C-C522-46CD-8D89-DF2CA59C6323}"
 EndProject

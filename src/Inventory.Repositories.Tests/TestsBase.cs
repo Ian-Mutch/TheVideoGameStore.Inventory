@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System;
 using TheVideoGameStore.Inventory.Data.Abstractions;
 using TheVideoGameStore.Inventory.Data.InMemory.Extensions;
+using TheVideoGameStore.Inventory.Repositories.Extensions;
 
 namespace TheVideoGameStore.Inventory.Repositories.Tests;
 
@@ -30,6 +31,6 @@ public abstract class TestsBase
 
     protected virtual void ConfigureTestData(IInventoryDbContext dbContext)
     {
-        
+
     }
 }

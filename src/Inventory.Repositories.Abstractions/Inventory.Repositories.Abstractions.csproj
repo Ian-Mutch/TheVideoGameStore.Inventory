@@ -1,11 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <AssemblyName>TheVideoGameStore.Inventory.Repositories.Abstractions</AssemblyName>
-    <RootNamespace>TheVideoGameStore.Inventory.Repositories.Abstractions</RootNamespace>
-  </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Inventory.Models\Inventory.Models.csproj" />
   </ItemGroup>

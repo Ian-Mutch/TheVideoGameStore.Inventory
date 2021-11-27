@@ -5,11 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Text.Json.Serialization;
+using TheVideoGameStore.Inventory.Api.Filters;
 using TheVideoGameStore.Inventory.Data.InMemory.Extensions;
-using TheVideoGameStore.Inventory.Filters;
-using TheVideoGameStore.Inventory.Repositories;
+using TheVideoGameStore.Inventory.Repositories.Extensions;
 
-namespace TheVideoGameStore.Inventory;
+namespace TheVideoGameStore.Inventory.Api;
 
 public class Startup
 {

@@ -3,7 +3,7 @@
   "defaultVariables": null,
   "documentGenerator": {
     "aspNetCoreToOpenApi": {
-      "project": "../Inventory/Inventory.csproj",
+      "project": "../Inventory.Api/Inventory.Api.csproj",
       "msBuildProjectExtensionsPath": null,
       "configuration": null,
       "runtime": null,
@@ -49,7 +49,7 @@
       "startupType": null,
       "allowNullableBodyParameters": true,
       "useHttpAttributeNameAsOperationId": false,
-      "output": "../Inventory/AutoGen//swagger.json",
+      "output": "../Inventory.Api/AutoGen//swagger.json",
       "outputType": "Swagger2",
       "newLineBehavior": "Auto",
       "assemblyPaths": [],

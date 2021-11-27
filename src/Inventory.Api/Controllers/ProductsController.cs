@@ -8,7 +8,7 @@ using System.Net.Mime;
 using TheVideoGameStore.Inventory.Models;
 using TheVideoGameStore.Inventory.Repositories.Abstractions;
 
-namespace TheVideoGameStore.Inventory.Controllers;
+namespace TheVideoGameStore.Inventory.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

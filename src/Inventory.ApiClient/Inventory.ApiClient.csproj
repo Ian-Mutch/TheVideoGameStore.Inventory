@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <AssemblyName>TheVideoGameStore.Inventory.ApiClient</AssemblyName>
-    <RootNamespace>TheVideoGameStore.Inventory.ApiClient</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/Ian-Mutch/TheVideoGameStore.Inventory.git</PackageProjectUrl>
     <Description>Typed HttpClients for TheVideoGameStore Inventory microservice.</Description>

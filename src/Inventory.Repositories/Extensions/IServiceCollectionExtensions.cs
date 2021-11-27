@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TheVideoGameStore.Inventory.Repositories.Abstractions;
 
-namespace TheVideoGameStore.Inventory.Repositories;
+namespace TheVideoGameStore.Inventory.Repositories.Extensions;
 
 public static class IServiceCollectionExtensions
 {
