@@ -1,7 +1,7 @@
 # The Video Game Store - Inventory
 An inventory microservice for TheVideoGameStore managing products
 
-![example workflow](https://github.com/Ian-Mutch/TheVideoGameStore.Inventory/actions/workflows/build-inventory/badge.svg)
+![example workflow](https://github.com/Ian-Mutch/TheVideoGameStore.Inventory/actions/workflows/build-inventory.wml/badge.svg)
 
 ## What's new
 
