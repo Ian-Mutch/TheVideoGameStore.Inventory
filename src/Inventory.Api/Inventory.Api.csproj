@@ -1,11 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <AssemblyName>TheVideoGameStore.Inventory</AssemblyName>
-    <RootNamespace>TheVideoGameStore.Inventory</RootNamespace>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NSwag.AspNetCore" Version="13.14.3" />

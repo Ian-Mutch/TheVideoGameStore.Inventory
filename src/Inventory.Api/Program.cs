@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
 
-namespace TheVideoGameStore.Inventory;
+namespace TheVideoGameStore.Inventory.Api;
 
 public class Program
 {
