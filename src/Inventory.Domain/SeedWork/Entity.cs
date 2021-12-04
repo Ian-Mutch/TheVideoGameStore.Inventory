@@ -5,12 +5,12 @@ namespace TheVideoGameStore.Inventory.Domain.SeedWork;
 public class Entity
 {
     int? _requestedHashCode;
-    int _Id;
+    int _id;
     private List<INotification> _domainEvents;
     public virtual int Id
     {
-        get => _Id;
-        protected set => _Id = value;
+        get => _id;
+        protected set => _id = value;
     }
 
     public List<INotification> DomainEvents => _domainEvents;

@@ -1,7 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <ProjectReference Include="..\Inventory.Models\Inventory.Models.csproj" />
-  </ItemGroup>
-
-</Project>

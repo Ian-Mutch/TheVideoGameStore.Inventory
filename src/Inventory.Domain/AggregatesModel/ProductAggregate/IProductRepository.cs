@@ -1,7 +1,6 @@
 ﻿namespace TheVideoGameStore.Inventory.Domain.AggregatesModel.ProductAggregate;
 
-public interface IProductRepository
+public interface IProductRepository : IRepository
 {
-    IEnumerable<Product> GetAll();
-    Product GetById(int id);
+    Task<List<Product>> GetAllAsync(string platform = null, string productType = null, CancellationToken cancellationToken = default);
 }
