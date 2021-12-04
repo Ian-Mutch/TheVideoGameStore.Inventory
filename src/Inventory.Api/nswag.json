@@ -3,7 +3,7 @@
   "defaultVariables": null,
   "documentGenerator": {
     "aspNetCoreToOpenApi": {
-      "project": "../Inventory.Api/Inventory.Api.csproj",
+      "project": "Inventory.Api.csproj",
       "msBuildProjectExtensionsPath": null,
       "configuration": null,
       "runtime": null,
@@ -49,7 +49,7 @@
       "startupType": null,
       "allowNullableBodyParameters": true,
       "useHttpAttributeNameAsOperationId": false,
-      "output": "../Inventory.Api/AutoGen//swagger.json",
+      "output": "AutoGen/swagger.json",
       "outputType": "Swagger2",
       "newLineBehavior": "Auto",
       "assemblyPaths": [],
@@ -82,8 +82,8 @@
       "clientClassAccessModifier": "",
       "typeAccessModifier": "public",
       "generateContractsOutput": true,
-      "contractsNamespace": "TheVideoGameStore.Inventory.ApiClient.Contracts",
-      "contractsOutputFilePath": "../Inventory.ApiClient/AutoGen/Contracts/InventoryHttpClient.cs",
+      "contractsNamespace": "TheVideoGameStore.Inventory.Api.Sdk",
+      "contractsOutputFilePath": "../Inventory.Api.Sdk/AutoGen/Contracts.cs",
       "parameterDateTimeFormat": "s",
       "parameterDateFormat": "yyyy-MM-dd",
       "generateUpdateJsonSerializerSettingsMethod": true,
@@ -105,7 +105,7 @@
       "wrapResponseMethods": [],
       "generateResponseClasses": true,
       "responseClass": "SwaggerResponse",
-      "namespace": "TheVideoGameStore.Inventory.ApiClient",
+      "namespace": "TheVideoGameStore.Inventory.Api.Sdk",
       "requiredPropertiesMustBeDefined": true,
       "dateType": "System.DateTimeOffset",
       "jsonConverters": null,
@@ -143,7 +143,7 @@
       "checksumCacheEnabled": false,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "../Inventory.ApiClient/AutoGen/InventoryHttpClient.cs",
+      "output": "../Inventory.Api.Sdk/AutoGen/InventoryHttpClient.cs",
       "newLineBehavior": "Auto"
     }
   }
