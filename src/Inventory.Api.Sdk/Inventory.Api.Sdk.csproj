@@ -4,6 +4,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/Ian-Mutch/TheVideoGameStore.Inventory.git</PackageProjectUrl>
     <Description>Typed HttpClients for TheVideoGameStore Inventory microservice.</Description>
+	<TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
