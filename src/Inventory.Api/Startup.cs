@@ -1,13 +1,8 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using MediatR;
 using Serilog;
-using System.Text.Json.Serialization;
 using TheVideoGameStore.Inventory.Api.Filters;
-using TheVideoGameStore.Inventory.Data.InMemory.Extensions;
-using TheVideoGameStore.Inventory.Repositories.Extensions;
+using TheVideoGameStore.Inventory.Domain.Extensions;
+using TheVideoGameStore.Inventory.Infastructure.Extensions;
 
 namespace TheVideoGameStore.Inventory.Api;
 
@@ -22,14 +17,13 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddInventoryDbInMemory();
-        services.AddRepositories();
+        services.AddMediatR(typeof(Startup).Assembly);
+        services.AddAutoMapper(typeof(Startup).Assembly);
+        services.AddDomain();
+        services.AddInfastructure();
         services.AddControllers(config =>
         {
             config.Filters.Add<ModelValidationFilter>();
-        }).AddJsonOptions(options =>
-        {
-            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
         });
 
         services.AddSwaggerDocument(config =>
@@ -49,8 +43,6 @@ public class Startup
             app.UseOpenApi();
             app.UseSwaggerUi3();
         }
-
-        app.UseInventoryDbInMemorySeedData();
 
         app.UseHttpsRedirection();
 

@@ -21,78 +21,11 @@ namespace TheVideoGameStore.Inventory.ApiClient.Contracts
     {
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="InventoryApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Product>> GetAllProductsAsync(Platform? platform = null, ProductType? productType = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task GetAllProductsAsync(string platform = null, string productType = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
     }
 
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Product 
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
-        public int Id { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("guid", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.Guid Guid { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Name { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("releaseDate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? ReleaseDate { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("platform", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public Platform Platform { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("productType", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public ProductType ProductType { get; set; }
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v12.0.0.0)")]
-    public enum Platform
-    {
-        [System.Runtime.Serialization.EnumMember(Value = @"XboxOne")]
-        XboxOne = 0,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"XboxSeriesX")]
-        XboxSeriesX = 1,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"Playstation4")]
-        Playstation4 = 2,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"Playstation5")]
-        Playstation5 = 3,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"NintendoSwitch")]
-        NintendoSwitch = 4,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"PC")]
-        PC = 5,
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v12.0.0.0)")]
-    public enum ProductType
-    {
-        [System.Runtime.Serialization.EnumMember(Value = @"Console")]
-        Console = 0,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"VideoGame")]
-        VideoGame = 1,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"Accessory")]
-        Accessory = 2,
-    
-    }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.14.3.0 (NJsonSchema v10.5.2.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class InventoryApiException : System.Exception
