@@ -2,6 +2,6 @@
   <PropertyGroup>
     <AssemblyName>TheVideoGameStore.$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>TheVideoGameStore.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-	<ImplicitUsings>enable</ImplicitUsings>
+	
   </PropertyGroup>
 </Project>

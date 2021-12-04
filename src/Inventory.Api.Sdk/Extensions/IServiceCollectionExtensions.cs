@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Net.Http;
 
 namespace TheVideoGameStore.Inventory.Api.Sdk.Extensions;
 
