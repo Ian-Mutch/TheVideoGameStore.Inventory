@@ -12,6 +12,8 @@ class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.ToTable("product");
         builder.HasKey(e => e.Id);
 
+        builder.Ignore(e => e.DomainEvents);
+
         builder.Property(e => e.Id)
             .UseIdentityColumn();
 

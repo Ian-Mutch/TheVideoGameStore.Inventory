@@ -1,3 +1,4 @@
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -5,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using TheVideoGameStore.Inventory.Api.Application.Pipelines.Extensions;
 using TheVideoGameStore.Inventory.Api.Filters;
 using TheVideoGameStore.Inventory.Domain.Extensions;
 using TheVideoGameStore.Inventory.Infastructure.Extensions;
@@ -22,7 +24,10 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddMediatR(typeof(Startup).Assembly);
+        services.AddMediatR(typeof(Startup).Assembly)
+                .AddMediatRPipelines();
+
+        services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
         services.AddAutoMapper(typeof(Startup).Assembly);
         services.AddDomain();
         services.AddInfastructure();
