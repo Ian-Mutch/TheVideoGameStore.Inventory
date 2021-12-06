@@ -4,25 +4,25 @@ namespace TheVideoGameStore.Inventory.Domain.SeedWork;
 
 public class Entity
 {
-    int? _requestedHashCode;
-    int _id;
-    private List<INotification> _domainEvents;
     public virtual int Id
     {
         get => _id;
         protected set => _id = value;
     }
+    public List<INotification> DomainEvents { get; private set; }
 
-    public List<INotification> DomainEvents => _domainEvents;
+    int? _requestedHashCode;
+    int _id;
+
     public void AddDomainEvent(INotification eventItem)
     {
-        _domainEvents = _domainEvents ?? new List<INotification>();
-        _domainEvents.Add(eventItem);
+        DomainEvents ??= new List<INotification>();
+        DomainEvents.Add(eventItem);
     }
     public void RemoveDomainEvent(INotification eventItem)
     {
-        if (_domainEvents is null) return;
-        _domainEvents.Remove(eventItem);
+        if (DomainEvents is null) return;
+        DomainEvents.Remove(eventItem);
     }
 
     public bool IsTransient()
@@ -32,17 +32,14 @@ public class Entity
 
     public override bool Equals(object obj)
     {
-        if (obj == null || !(obj is Entity))
+        if (obj is null or not Entity)
             return false;
         if (ReferenceEquals(this, obj))
             return true;
         if (GetType() != obj.GetType())
             return false;
         var item = (Entity)obj;
-        if (item.IsTransient() || IsTransient())
-            return false;
-        else
-            return item.Id == Id;
+        return !item.IsTransient() && !IsTransient() && item.Id == Id;
     }
 
     public override int GetHashCode()
@@ -58,15 +55,6 @@ public class Entity
         else
             return base.GetHashCode();
     }
-    public static bool operator ==(Entity left, Entity right)
-    {
-        if (Equals(left, null))
-            return Equals(right, null);
-        else
-            return left.Equals(right);
-    }
-    public static bool operator !=(Entity left, Entity right)
-    {
-        return !(left == right);
-    }
+    public static bool operator ==(Entity left, Entity right) => Equals(left, null) ? Equals(right, null) : left.Equals(right);
+    public static bool operator !=(Entity left, Entity right) => !(left == right);
 }
