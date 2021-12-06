@@ -8,33 +8,39 @@ using TheVideoGameStore.Inventory.Domain.AggregatesModel.ProductAggregate;
 
 namespace TheVideoGameStore.Inventory.Api.UnitTests.Application.Queries;
 
-public class ProductResponseTests : TestsBase
+public class GetProductByIdQueryTests : TestsBase
 {
     [Test]
-    public async Task GetAllProducts_Success()
+    public async Task GetProductById_Success()
     {
         //Arrange
+        var repository = ServiceProvider.GetRequiredService<IProductRepository>();
+        var product = await repository.AddProductAsync(new Product
+        {
+            Name = "Game 01",
+            Description = "Description of game 01",
+            PlatformId = Platform.XboxOne.Id,
+            ProductTypeId = ProductType.VideoGame.Id,
+            ReleaseDate = DateTime.Now
+        });
         var mediater = ServiceProvider.GetRequiredService<IMediator>();
-        var query = new GetAllProductsQuery();
+        var query = new GetProductByIdQuery(product.Guid);
 
         //Act
         var result = await mediater.Send(query);
 
         //Assert
         Assert.NotNull(result);
-        Assert.NotZero(result.Count);
+        Assert.AreEqual(product.Guid, result.Guid);
     }
 
     [Test]
-    public void GetAllProducts_ThrowsValidationException()
+    public void GetProductById_ThrowsValidationException()
     {
         //Arrange
         var mediater = ServiceProvider.GetRequiredService<IMediator>();
-        var query = new GetAllProductsQuery()
-        {
-            Platform = ""
-        };
-        AsyncTestDelegate code = async () => await mediater.Send(query);
+        var query = new GetProductByIdQuery(Guid.Empty);
+        async Task code() => await mediater.Send(query);
 
         //Act & Assert
         Assert.ThrowsAsync<ValidationException>(code);
