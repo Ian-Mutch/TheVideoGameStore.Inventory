@@ -11,7 +11,8 @@ internal class GetAllProductsQueryValidatorTests : TestsBase
     [TestCase(null, null)]
     [TestCase(nameof(Platform.Playstation4), null)]
     [TestCase(null, nameof(ProductType.Accessory))]
-    public void Test_Validate_Success(string platform, string productType)
+    [TestCase(nameof(Platform.Playstation4), nameof(ProductType.Accessory))]
+    public void Validate_Success(string platform, string productType)
     {
         //Arrange
         var validator = ServiceProvider.GetRequiredService<IValidator<GetAllProductsQuery>>();
@@ -20,7 +21,7 @@ internal class GetAllProductsQueryValidatorTests : TestsBase
             Platform = platform,
             ProductType = productType
         };
-        TestDelegate code = () => validator.ValidateAndThrow(query);
+        void code() => validator.ValidateAndThrow(query);
 
         //Act & Assert
         Assert.DoesNotThrow(code);
@@ -29,7 +30,7 @@ internal class GetAllProductsQueryValidatorTests : TestsBase
     [TestCase("", null)]
     [TestCase(null, "")]
     [TestCase("", "")]
-    public void Test_Validate_ThrowsValidationException(string platform, string productType)
+    public void Validate_ThrowsValidationException(string platform, string productType)
     {
         //Arrange
         var validator = ServiceProvider.GetRequiredService<IValidator<GetAllProductsQuery>>();
@@ -38,7 +39,7 @@ internal class GetAllProductsQueryValidatorTests : TestsBase
             Platform = platform,
             ProductType = productType
         };
-        TestDelegate code = () => validator.ValidateAndThrow(query);
+        void code() => validator.ValidateAndThrow(query);
 
         //Act & Assert
         Assert.Throws<ValidationException>(code);

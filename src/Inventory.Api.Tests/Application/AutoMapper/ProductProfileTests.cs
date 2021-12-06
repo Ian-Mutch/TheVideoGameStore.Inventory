@@ -2,15 +2,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using TheVideoGameStore.Inventory.Api.Application.Responses;
-using TheVideoGameStore.Inventory.Api.UnitTests;
 using TheVideoGameStore.Inventory.Domain.AggregatesModel.ProductAggregate;
 
 namespace TheVideoGameStore.Inventory.Api.UnitTests.Application.AutoMapper;
 
-public class ProductResponseTests : TestsBase
+public class ProductProfileTests : TestsBase
 {
     [Test]
-    public void Test_MapToSingle()
+    public void ProductToProductResponse_Success()
     {
         //Arrange
         var mapper = ServiceProvider.GetRequiredService<IMapper>();
@@ -18,8 +17,8 @@ public class ProductResponseTests : TestsBase
         {
             Name = "Game 01",
             Description = "Description 01",
-            Platform = Platform.XboxOne,
-            ProductType = ProductType.VideoGame,
+            PlatformId = Platform.XboxOne.Id,
+            ProductTypeId = ProductType.VideoGame.Id,
             ReleaseDate = DateTime.Now
         };
 
@@ -31,7 +30,7 @@ public class ProductResponseTests : TestsBase
         Assert.AreEqual(product.Name, result.Name);
         Assert.AreEqual(product.Description, result.Description);
         Assert.AreEqual(product.ReleaseDate, result.ReleaseDate);
-        Assert.AreEqual(product.Platform.Name, result.Platform);
-        Assert.AreEqual(product.ProductType.Name, result.ProductType);
+        Assert.AreEqual(nameof(Platform.XboxOne), result.Platform);
+        Assert.AreEqual(nameof(ProductType.VideoGame), result.ProductType);
     }
 }
