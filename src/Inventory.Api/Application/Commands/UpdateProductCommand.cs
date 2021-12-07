@@ -6,8 +6,8 @@ namespace TheVideoGameStore.Inventory.Api.Application.Commands;
 public class UpdateProductCommand : IRequest<ProductResponse>
 {
     public Guid Id { get; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string Name { get; init; }
+    public string Description { get; init; }
     public string ProductType { get; init; }
     public string Platform { get; init; }
     public DateTime? ReleaseDate { get; init; }
