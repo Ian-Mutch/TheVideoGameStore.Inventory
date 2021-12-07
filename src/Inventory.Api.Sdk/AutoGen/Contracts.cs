@@ -31,6 +31,10 @@ namespace TheVideoGameStore.Inventory.Api.Sdk
         /// <exception cref="InventoryApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task GetProductByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="InventoryApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task UpdateProductAsync(System.Guid id, AddProductRequest request, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v12.0.0.0)")]

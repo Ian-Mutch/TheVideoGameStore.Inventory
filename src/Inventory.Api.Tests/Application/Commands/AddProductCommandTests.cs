@@ -21,7 +21,7 @@ public class AddProductCommandTests : TestsBase
             Description = "Description of game 01",
             Platform = nameof(Platform.XboxOne),
             ProductType = nameof(ProductType.VideoGame),
-            ReleaseDate = DateTime.Now
+            ReleaseDate = DateTime.UtcNow
         };
 
         //Act
@@ -37,27 +37,12 @@ public class AddProductCommandTests : TestsBase
         Assert.AreEqual(command.ReleaseDate, result.ReleaseDate);
     }
 
-    [TestCase("", "Description", nameof(Platform.XboxOne), nameof(ProductType.VideoGame))]
-    [TestCase("Name", "", nameof(Platform.XboxOne), nameof(ProductType.VideoGame))]
-    [TestCase("Name", "Description", "", nameof(ProductType.VideoGame))]
-    [TestCase("Name", "Description", nameof(Platform.XboxOne), "")]
-    [TestCase(null, "Description", nameof(Platform.XboxOne), nameof(ProductType.VideoGame))]
-    [TestCase("Name", null, nameof(Platform.XboxOne), nameof(ProductType.VideoGame))]
-    [TestCase("Name", "Description", null, nameof(ProductType.VideoGame))]
-    [TestCase("Name", "Description", nameof(Platform.XboxOne), null)]
-    [TestCase("Name", "Description", null, null)]
-    [TestCase(null, null, null, null)]
-    public void AddProductCommand_ThrowsValidationException(string name, string description, string platform, string productType)
+    [Test]
+    public void AddProductCommand_ThrowsValidationException()
     {
         //Arrange
         var mediater = ServiceProvider.GetRequiredService<IMediator>();
-        var query = new AddProductCommand()
-        {
-            Name = name,
-            Description = description,
-            Platform = platform,
-            ProductType = productType
-        };
+        var query = new AddProductCommand();
         async Task code() => await mediater.Send(query);
 
         //Act & Assert

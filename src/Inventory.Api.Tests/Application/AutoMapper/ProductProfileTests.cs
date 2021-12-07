@@ -19,7 +19,7 @@ public class ProductProfileTests : TestsBase
             Description = "Description 01",
             PlatformId = Platform.XboxOne.Id,
             ProductTypeId = ProductType.VideoGame.Id,
-            ReleaseDate = DateTime.Now
+            ReleaseDate = DateTime.UtcNow
         };
 
         //Act

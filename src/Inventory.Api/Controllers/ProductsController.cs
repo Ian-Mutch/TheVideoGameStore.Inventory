@@ -33,12 +33,17 @@ public class ProductsController : ControllerBase
 
         try
         {
+            _logger.LogDebug("Processing {action} : Request = {@request}", nameof(GetAllProducts), request);
+
             query = new GetAllProductsQuery
             {
                 Platform = request.Platform,
                 ProductType = request.ProductType
             };
             var result = await _mediater.Send(query);
+
+            _logger.LogDebug("Finished processing {action} : Result = {@result}", nameof(GetAllProducts), result);
+
             return Ok(result);
         }
         catch (Exception ex)
@@ -58,8 +63,13 @@ public class ProductsController : ControllerBase
     {
         try
         {
+            _logger.LogDebug("Processing {action} : Request = {id}", nameof(GetProductById), id);
+
             var query = new GetProductByIdQuery(id);
             var result = await _mediater.Send(query);
+
+            _logger.LogDebug("Finished processing {action} : Result = {@result}", nameof(GetProductById), result);
+
             return result is null ? NotFound() : Ok(result);
         }
         catch (Exception ex)
@@ -79,6 +89,8 @@ public class ProductsController : ControllerBase
     {
         try
         {
+            _logger.LogDebug("Processing {action} : Request = {@request}", nameof(AddProduct), request);
+
             var command = new AddProductCommand
             {
                 Name = request.Name,
@@ -88,12 +100,52 @@ public class ProductsController : ControllerBase
                 ReleaseDate = request.ReleaseDate
             };
             var result = await _mediater.Send(command);
+
+            _logger.LogDebug("Finished processing {action} : Result = {@result}", nameof(AddProduct), result);
+
             return CreatedAtAction(nameof(GetProductById), new { id = result.Id }, result);
         }
         catch (Exception ex)
         {
             _logger.LogError(new EventId(5003), ex, "Failed to add product: {@request}", request);
             throw new Exception("Failed to add product");
+        }
+    }
+
+    [HttpPut("{id}")]
+    [OpenApiOperation("UpdateProduct")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] AddProductRequest request)
+    {
+        try
+        {
+            _logger.LogDebug("Processing {action} : Id = {id} : Request = {@request}", nameof(UpdateProduct), id, request);
+
+            var product = await _mediater.Send(new GetProductByIdQuery(id));
+            if (product is null)
+                return NotFound();
+
+            var command = new UpdateProductCommand(id)
+            {
+                Name = request.Name,
+                Description = request.Description,
+                Platform = request.Platform,
+                ProductType = request.ProductType,
+                ReleaseDate = request.ReleaseDate
+            };
+            var result = await _mediater.Send(command);
+
+            _logger.LogDebug("Finished processing {action} : Result = {@result}", nameof(UpdateProduct), result);
+
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            var properties = new { id, request };
+            _logger.LogError(new EventId(5004), ex, "Failed to update product: {@properties}", properties);
+            throw new Exception("Failed to update product");
         }
     }
 }
