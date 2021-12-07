@@ -5,4 +5,5 @@ public interface IProductRepository : IRepository
     Task<List<Product>> GetAllAsync(string platform = null, string productType = null, CancellationToken cancellationToken = default);
     Task<Product> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     Task<Product> AddProductAsync(Product product, CancellationToken cancellationToken = default);
+    Task<Product> UpdateProductAsync(Guid id, Product product, CancellationToken cancellationToken = default);
 }

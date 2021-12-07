@@ -20,7 +20,7 @@ public class AddProductCommandProfileTests : TestsBase
             Description = "Description 01",
             Platform = Platform.XboxOne.Name,
             ProductType = ProductType.VideoGame.Name,
-            ReleaseDate = DateTime.Now
+            ReleaseDate = DateTime.UtcNow
         };
 
         //Act

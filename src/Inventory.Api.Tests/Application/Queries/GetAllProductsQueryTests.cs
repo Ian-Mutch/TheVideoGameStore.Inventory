@@ -14,6 +14,7 @@ public class GetAllProductsQueryTests : TestsBase
     public async Task GetAllProducts_Success()
     {
         //Arrange
+        var currentDateTime = DateTime.UtcNow;
         var repository = ServiceProvider.GetRequiredService<IProductRepository>();
         await repository.AddProductAsync(new Product
         {
@@ -21,7 +22,7 @@ public class GetAllProductsQueryTests : TestsBase
             Description = "Description of game 01",
             PlatformId = Platform.XboxOne.Id,
             ProductTypeId = ProductType.VideoGame.Id,
-            ReleaseDate = DateTime.Now
+            ReleaseDate = currentDateTime
         });
         await repository.AddProductAsync(new Product
         {
@@ -29,7 +30,7 @@ public class GetAllProductsQueryTests : TestsBase
             Description = "Description of accessory 02",
             PlatformId = Platform.Playstation4.Id,
             ProductTypeId = ProductType.Accessory.Id,
-            ReleaseDate = DateTime.Now
+            ReleaseDate = currentDateTime
         });
         var mediater = ServiceProvider.GetRequiredService<IMediator>();
         var query = new GetAllProductsQuery();

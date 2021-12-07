@@ -28,4 +28,15 @@ internal class ProductRepository : IProductRepository
         _products.Add(product);
         return Task.FromResult(product);
     }
+
+    public Task<Product> UpdateProductAsync(Guid id, Product product, CancellationToken cancellationToken = default)
+    {
+        var existingProduct = _products.Single(x => x.Guid == id);
+        existingProduct.Name = product.Name;
+        existingProduct.Description = product.Description;
+        existingProduct.PlatformId = product.PlatformId;
+        existingProduct.ProductTypeId = product.ProductTypeId;
+
+        return Task.FromResult(existingProduct);
+    }
 }
