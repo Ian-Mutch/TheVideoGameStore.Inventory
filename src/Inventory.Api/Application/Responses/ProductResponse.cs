@@ -2,11 +2,11 @@
 
 public class ProductResponse
 {
-    public int Id { get; set; }
-    public Guid Guid { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public DateTime? ReleaseDate { get; set; }
-    public string Platform { get; set; }
-    public string ProductType { get; set; }
+    public Guid Id { get; init; }
+    public string Name { get; init; }
+    public string Description { get; init; }
+    public DateTime? ReleaseDate { get; init; }
+    public string Platform { get; init; }
+    public string ProductType { get; init; }
+    public Dictionary<string, int> StockQuantities { get; init; } = new();
 }

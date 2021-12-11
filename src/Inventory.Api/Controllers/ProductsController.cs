@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using System.Net.Mime;
-using TheVideoGameStore.Inventory.Api.Application.Commands;
-using TheVideoGameStore.Inventory.Api.Application.Queries;
-using TheVideoGameStore.Inventory.Api.Application.Requests;
+using TheVideoGameStore.Inventory.Api.Application.Commands.Products;
+using TheVideoGameStore.Inventory.Api.Application.Queries.Products;
+using TheVideoGameStore.Inventory.Api.Application.Requests.Products;
 
 namespace TheVideoGameStore.Inventory.Api.Controllers;
 
@@ -16,7 +16,7 @@ public class ProductsController : ControllerBase
     private readonly ILogger<ProductsController> _logger = null;
     private readonly IMediator _mediater = null;
 
-    public ProductsController(ILogger<ProductsController> logger,  IMediator mediator)
+    public ProductsController(ILogger<ProductsController> logger, IMediator mediator)
     {
         _logger = logger;
         _mediater = mediator;
@@ -27,7 +27,7 @@ public class ProductsController : ControllerBase
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetAllProducts([FromQuery]GetAllProductsRequest request)
+    public async Task<IActionResult> GetAllProducts([FromQuery] GetAllProductsRequest request)
     {
         GetAllProductsQuery query = null;
 
@@ -48,7 +48,7 @@ public class ProductsController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(new EventId(5001), ex, "Failed to get all products: {@query}", query);
+            _logger.LogError(ex, "Failed to get all products: {@query}", query);
             throw new Exception("Failed to get all products");
         }
     }
@@ -74,7 +74,7 @@ public class ProductsController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(new EventId(5002), ex, "Failed to get product {id}", id);
+            _logger.LogError(ex, "Failed to get product {id}", id);
             throw new Exception("Failed to get product");
         }
     }
@@ -107,7 +107,7 @@ public class ProductsController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(new EventId(5003), ex, "Failed to add product: {@request}", request);
+            _logger.LogError(ex, "Failed to add product: {@request}", request);
             throw new Exception("Failed to add product");
         }
     }
@@ -115,6 +115,7 @@ public class ProductsController : ControllerBase
     [HttpPut("{id}")]
     [OpenApiOperation("UpdateProduct")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] AddProductRequest request)
@@ -122,10 +123,6 @@ public class ProductsController : ControllerBase
         try
         {
             _logger.LogDebug("Processing {action} : Id = {id} : Request = {@request}", nameof(UpdateProduct), id, request);
-
-            var product = await _mediater.Send(new GetProductByIdQuery(id));
-            if (product is null)
-                return NotFound();
 
             var command = new UpdateProductCommand(id)
             {
@@ -139,12 +136,12 @@ public class ProductsController : ControllerBase
 
             _logger.LogDebug("Finished processing {action} : Result = {@result}", nameof(UpdateProduct), result);
 
-            return Ok();
+            return result ? Ok() : NotFound();
         }
         catch (Exception ex)
         {
             var properties = new { id, request };
-            _logger.LogError(new EventId(5004), ex, "Failed to update product: {@properties}", properties);
+            _logger.LogError(ex, "Failed to update product: {@properties}", properties);
             throw new Exception("Failed to update product");
         }
     }

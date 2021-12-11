@@ -11,7 +11,7 @@ public class Platform : Enumeration
     public static readonly Platform NintendoSwitch = new(5, nameof(NintendoSwitch));
     public static readonly Platform PC = new(6, nameof(PC));
 
-    public Platform(int id, string name)
+    private Platform(int id, string name)
         : base(id, name)
     {
     }

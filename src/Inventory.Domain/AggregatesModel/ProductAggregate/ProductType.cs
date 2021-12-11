@@ -8,7 +8,7 @@ public class ProductType : Enumeration
     public static readonly ProductType VideoGame = new(2, nameof(VideoGame));
     public static readonly ProductType Accessory = new(3, nameof(Accessory));
 
-    public ProductType(int id, string name)
+    private ProductType(int id, string name)
         : base(id, name)
     {
     }

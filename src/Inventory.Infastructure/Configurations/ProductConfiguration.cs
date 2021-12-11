@@ -30,10 +30,15 @@ class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.HasOne(p => p.ProductType)
             .WithMany()
-            .HasForeignKey(e => e.ProductTypeId);
+            .HasForeignKey(e => e.ProductTypeId)
+            .IsRequired();
 
         builder.HasOne(p => p.Platform)
             .WithMany()
-            .HasForeignKey(e => e.PlatformId);
+            .HasForeignKey(e => e.PlatformId)
+            .IsRequired();
+
+        var navigation = builder.Metadata.FindNavigation(nameof(Product.Stock));
+        navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

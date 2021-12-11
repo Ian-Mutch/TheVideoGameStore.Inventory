@@ -12,7 +12,7 @@ class ProductRepository : IProductRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<Product>> GetAllAsync(string platform = null, string productType = null, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Product>> GetAllAsync(string platform = null, string productType = null, CancellationToken cancellationToken = default)
     {
         var query = from p in _dbContext.Products.AsNoTracking()
                                                 .Include(p => p.ProductType)
@@ -35,14 +35,14 @@ class ProductRepository : IProductRepository
         return await query.SingleOrDefaultAsync(cancellationToken: cancellationToken);
     }
         
-    public async Task<Product> AddProductAsync(Product product, CancellationToken cancellationToken = default)
+    public async Task<Product> AddAsync(Product product, CancellationToken cancellationToken = default)
     {
         var result = _dbContext.Products.Add(product);
         await _dbContext.SaveChangesAsync(cancellationToken: cancellationToken);
         return result.Entity;
     }
 
-    public async Task<Product> UpdateProductAsync(Guid id, Product product, CancellationToken cancellationToken = default)
+    public async Task UpdateAsync(Guid id, Product product, CancellationToken cancellationToken = default)
     {
         var existingProduct = _dbContext.Products.Single(p => p.Guid == id);
         existingProduct.Name = product.Name;
@@ -52,6 +52,5 @@ class ProductRepository : IProductRepository
         existingProduct.ReleaseDate = product.ReleaseDate;
 
         await _dbContext.SaveChangesAsync(cancellationToken: cancellationToken);
-        return existingProduct;
     }
 }

@@ -145,6 +145,62 @@ namespace TheVideoGameStore.Inventory.Infastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("TheVideoGameStore.Inventory.Domain.AggregatesModel.StockItemAggregate.Condition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("condition", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "New"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Preowned"
+                        });
+                });
+
+            modelBuilder.Entity("TheVideoGameStore.Inventory.Domain.AggregatesModel.StockItemAggregate.Stock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ConditionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConditionId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("stock", (string)null);
+                });
+
             modelBuilder.Entity("TheVideoGameStore.Inventory.Domain.AggregatesModel.ProductAggregate.Product", b =>
                 {
                     b.HasOne("TheVideoGameStore.Inventory.Domain.AggregatesModel.ProductAggregate.Platform", "Platform")
@@ -162,6 +218,30 @@ namespace TheVideoGameStore.Inventory.Infastructure.Migrations
                     b.Navigation("Platform");
 
                     b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("TheVideoGameStore.Inventory.Domain.AggregatesModel.StockItemAggregate.Stock", b =>
+                {
+                    b.HasOne("TheVideoGameStore.Inventory.Domain.AggregatesModel.StockItemAggregate.Condition", "Condition")
+                        .WithMany()
+                        .HasForeignKey("ConditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TheVideoGameStore.Inventory.Domain.AggregatesModel.ProductAggregate.Product", "Product")
+                        .WithMany("Stock")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Condition");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("TheVideoGameStore.Inventory.Domain.AggregatesModel.ProductAggregate.Product", b =>
+                {
+                    b.Navigation("Stock");
                 });
 #pragma warning restore 612, 618
         }
